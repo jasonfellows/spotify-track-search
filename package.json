@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@ant-design/icons": "4.2.1",
@@ -21,5 +22,11 @@
   "browser": {
     "fs": false,
     "path": false
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "typescript": "^3.9.5"
   }
 }

@@ -1,8 +1,13 @@
+import React, { ReactNode } from 'react'
 import { Layout } from 'antd'
 
 const { Content } = Layout
 
-export function SingleColumnLayout ({ children }) {
+type Props = {
+  children?: ReactNode
+}
+
+export function SingleColumnLayout ({ children }: Props) {
   return (
     <Layout>
       <Content>

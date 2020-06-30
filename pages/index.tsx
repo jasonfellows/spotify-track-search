@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, MouseEvent, KeyboardEvent } from 'react'
 import { GetStaticProps } from 'next'
 import { SingleColumnLayout } from '../layouts'
-import { SearchForm } from '../components'
+import { SearchForm, SearchResults } from '../components'
 import { searchTracks } from '../lib/spotify'
 
 type Props = {
@@ -11,7 +11,13 @@ type Props = {
 export default function Home ({ token }: Props) {
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState<string | undefined>()
   const [results, setResults] = useState([])
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    setQuery(event.target.value)
+  }
 
   const handleSearch = (value: string, event?: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLElement> | KeyboardEvent<HTMLInputElement>) => {
     if (event) event.preventDefault()
@@ -35,9 +41,9 @@ export default function Home ({ token }: Props) {
 
   return (
     <SingleColumnLayout>
-      <SearchForm loading={loading} onSearch={handleSearch} />
+      <SearchForm loading={loading} onChange={handleChange} onSearch={handleSearch} query={query} />
       {!loading && error && <div>{error}</div>}
-      {!loading && results.length > 0 && <div>{JSON.stringify(results)}</div>}
+      {!loading && <SearchResults loading={loading} query={query} results={results} />}
     </SingleColumnLayout>
   )
 }

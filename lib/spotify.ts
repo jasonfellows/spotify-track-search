@@ -8,7 +8,7 @@ function getRequestInit (token: string): RequestInit {
   }
 }
 
-export function getTrack (trackId: string, token: string) {
+export function getTrack (trackId: string | string[], token: string = '') {
   const url = `${baseUrl}tracks/${trackId}`
   return fetch(url, getRequestInit(token))
 }

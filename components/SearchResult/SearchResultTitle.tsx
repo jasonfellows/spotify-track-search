@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 
 type Props = {
   artists: Array<SpotifyApi.ArtistObjectSimplified>,
   name: string
 }
 
-const style = {
+const style: CSSProperties = {
   fontSize: '1.4rem',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

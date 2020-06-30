@@ -6,7 +6,6 @@ type Props = {
 }
 
 const style = {
-  float: 'left',
   fontSize: '1.4rem',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

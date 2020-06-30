@@ -11,13 +11,7 @@ type Props = {
 export default function Home ({ token }: Props) {
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState(false)
-  const [query, setQuery] = useState<string | undefined>()
-  const [results, setResults] = useState([])
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    setQuery(event.target.value)
-  }
+  const [results, setResults] = useState<SpotifyApi.TrackSearchResponse | undefined>()
 
   const handleSearch = (value: string, event?: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLElement> | KeyboardEvent<HTMLInputElement>) => {
     if (event) event.preventDefault()
@@ -29,21 +23,21 @@ export default function Home ({ token }: Props) {
         if (!response.ok) throw Error(response.status.toString())
         return response.json()
       }).then(body => {
-        const tracks = body.tracks.items
         setLoading(false)
-        setResults(tracks)
+        setResults(body)
       }).catch(error => {
         console.log(error)
         setLoading(false)
+        setResults(undefined)
         setError(`Error fetching from Spotify API: ${error.message}`)
       })
   }
 
   return (
     <SingleColumnLayout>
-      <SearchForm loading={loading} onChange={handleChange} onSearch={handleSearch} query={query} />
+      <SearchForm loading={loading} onSearch={handleSearch} />
       {!loading && error && <div>{error}</div>}
-      {!loading && <SearchResults loading={loading} query={query} results={results} />}
+      {!loading && <SearchResults loading={loading} results={results} />}
     </SingleColumnLayout>
   )
 }

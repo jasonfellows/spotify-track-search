@@ -1,19 +1,23 @@
 import React from 'react'
+import { List } from 'antd'
+import SearchResult from './SearchResult'
 
 type Props = {
   loading: boolean,
-  query: string | undefined,
-  results: Array<object>
+  results: SpotifyApi.TrackSearchResponse | undefined
 }
 
-export function SearchResults ({ loading, query, results }: Props) {
+export function SearchResults ({ loading, results }: Props) {
   if (loading) return <span>loading</span>
-  if (query && results.length == 0) return <span>no results</span>
+  if (!results) return null
+  if (results.tracks.total == 0) return <span>no results</span>
 
   return (
-    <div>
-      {results.length > 0 && results.map(result => <div>{JSON.stringify(result)}</div>)}
-    </div>
+    <List
+      itemLayout="horizontal"
+      dataSource={results.tracks.items}
+      renderItem={(item: SpotifyApi.SingleTrackResponse) => <SearchResult track={item} />}
+    />
   )
 }
 

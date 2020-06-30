@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, MouseEvent, KeyboardEvent } from 'react'
 import { GetStaticProps } from 'next'
-import { Alert } from 'antd'
+import { Alert, Row, Col } from 'antd'
 import { SingleColumnLayout } from '../layouts'
 import { SearchForm, SearchResults } from '../components'
 import { searchTracks } from '../lib/spotify'
@@ -36,9 +36,17 @@ export default function Home ({ token }: Props) {
 
   return (
     <SingleColumnLayout>
-      <SearchForm loading={loading} onSearch={handleSearch} />
-      {!loading && error && <Alert type='error' message={error} />}
-      {!loading && <SearchResults loading={loading} results={results} />}
+      <Row justify='center'>
+        <Col span='14'>
+          <SearchForm className='my-5' loading={loading} onSearch={handleSearch} />
+        </Col>
+      </Row>
+      <Row justify='center'>
+        <Col span='20'>
+          {!loading && error && <Alert type='error' message={error} />}
+          {!loading && <SearchResults loading={loading} results={results} />}
+        </Col>
+      </Row>
     </SingleColumnLayout>
   )
 }

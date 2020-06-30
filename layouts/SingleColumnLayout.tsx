@@ -7,9 +7,15 @@ type Props = {
   children?: ReactNode
 }
 
+const layoutStyle = {
+  backgroundColor: 'var(--backgroundColor)',
+  margin: '0 auto',
+  maxWidth: '60rem'
+}
+
 export function SingleColumnLayout ({ children }: Props) {
   return (
-    <Layout>
+    <Layout style={layoutStyle}>
       <Content>
         {children}
       </Content>

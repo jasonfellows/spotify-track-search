@@ -1,5 +1,5 @@
 import React from 'react'
-import { List } from 'antd'
+import { Alert, List } from 'antd'
 import SearchResult from './SearchResult'
 
 type Props = {
@@ -8,9 +8,8 @@ type Props = {
 }
 
 export function SearchResults ({ loading, results }: Props) {
-  if (loading) return <span>loading</span>
   if (!results) return null
-  if (results.tracks.total == 0) return <span>no results</span>
+  if (results.tracks.total == 0) return <Alert type='info' message='No results' />
 
   return (
     <List
